@@ -1,6 +1,7 @@
 package paint.shape;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 
 public class Chaine extends Shape {
 
@@ -15,5 +16,15 @@ public class Chaine extends Shape {
     public void draw(Graphics g) {
         g.setColor(this.color);
         g.drawString(chaine, this.x, this.y);
+    }
+
+    @Override
+    public boolean isInTheShape(int x, int y) {
+        return false;
+    }
+
+    @Override
+    public void moveShape(MouseEvent e) {
+
     }
 }
