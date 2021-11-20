@@ -43,7 +43,7 @@ public class Paint {
         JButton bouton_str = new JButton("A");
         JButton btn_change_color = new JButton("Change color");
         JButton btn_selection = new JButton("Selection forme");
-        JButton btn_select_line = new JButton("Selection ligne");
+        JButton btn_select_line = new JButton("Selection A/Ligne");
         JButton gomme = new JButton("Clear");
 
         // Ajout des listeners
@@ -84,7 +84,6 @@ public class Paint {
             public void actionPerformed(ActionEvent e) {
                 main.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 Color c = main.getCouleur();
-                //main.addShape(new Dashed_rectangle(250, 100, c));
                 main.addShape(new Rectangle(250,100, c , 75, 100));
             }
         });
@@ -95,9 +94,8 @@ public class Paint {
             @Override
             public void actionPerformed(ActionEvent e) {
                 main.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-                System.out.println(e.getActionCommand());
                 Color c = main.getCouleur();
-                main.addShape(new Cercle(250, 90, c, 150));
+                main.addShape(new Cercle(350, 90, c, 150));
             }
         });
     }
@@ -128,8 +126,10 @@ public class Paint {
             public void actionPerformed(ActionEvent e) {
                 main.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
                 DialogInteractif d = new DialogInteractif();
-                Chaine saisie = new Chaine(60,60, main.getCouleur(),d.getChaine());
-                main.addShape(saisie);
+                if (d.getChaine() != null && ! d.getChaine().trim().equals("")) {
+                    Chaine saisie = new Chaine(320, 90, main.getCouleur(), d.getChaine());
+                    main.addShape(saisie);
+                }
             }
         });
     }
@@ -142,12 +142,11 @@ public class Paint {
                     main.addFreeHand(e.getX(), e.getY());
                 }
                 else if (main.getCursor().equals(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR))) {
-                    if (main.selection == null) {
-                        System.out.println(e.getPoint());
+                    if (main.selection == null)
                         main.moveShapes(e);
-                    } else {
+                    else
                         main.moveDrawingsSelection(e);
-                    }
+
                 } else if (main.getCursor().equals(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR))) {
                     if (main.selection == null){
                         Dashed_rectangle rectangle = new Dashed_rectangle(e.getX(), e.getY());
@@ -166,9 +165,8 @@ public class Paint {
                 if (main.selection != null) {
                     if (main.selection.isInTheShape(e.getX(), e.getY()))
                         main.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-                    else {
+                    else
                         main.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-                    }
                 }
             }
         });
@@ -179,7 +177,6 @@ public class Paint {
             @Override
             public void actionPerformed(ActionEvent e) {
                 main.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-                //main.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
             }
         });
     }

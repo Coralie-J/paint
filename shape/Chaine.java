@@ -20,11 +20,22 @@ public class Chaine extends Shape {
 
     @Override
     public boolean isInTheShape(int x, int y) {
-        return false;
+        return x > this.x && x < this.x + chaine.length() && y > this.y && y <= this.y + 2;
     }
 
     @Override
     public void moveShape(MouseEvent e) {
+        int diff_x = (e.getX() - this.x) - (chaine.length()/2);
+        int diff_y = (e.getY() - this.y);
+        this.y += diff_y;
+        this.x += diff_x;
+    }
+
+    public void moveShape(int x, int y, MouseEvent e){
+        int diff_x = (e.getX() - this.x) + (this.x - x);
+        int diff_y =  (e.getY() - this.y) + (this.y - y);
+        this.x += diff_x;
+        this.y += diff_y;
 
     }
 }

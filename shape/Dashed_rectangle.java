@@ -42,4 +42,16 @@ public class Dashed_rectangle extends Rectangle {
         }
         return h.points.size() == i;
     }
+
+    public boolean verifyShapeIntheRect(Chaine c){
+        return this.isInTheShape(c.x, c.y) && this.isInTheShape(c.x + c.chaine.length(), c.y);
+    }
+
+    public int getWidth(){
+        return this.width;
+    }
+
+    public int getHeight(){
+        return this.height;
+    }
 }

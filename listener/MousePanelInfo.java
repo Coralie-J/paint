@@ -1,7 +1,6 @@
 package paint.listener;
 
 import paint.PaintPanel;
-import paint.shape.Dashed_rectangle;
 import paint.shape.FreeHand;
 
 import java.awt.*;
@@ -15,10 +14,8 @@ public class MousePanelInfo implements MouseListener {
             PaintPanel panel = (PaintPanel) mouseEvent.getSource();
             if (panel.getCursor().equals(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR)))
                 panel.mouseClik(mouseEvent);
-            else {
-                panel.setCursor(panel.getCursor());
+            if (panel.getSelection() != null)
                 panel.manageOutOfSelection();
-            }
         }
     }
 

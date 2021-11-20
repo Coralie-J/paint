@@ -1,6 +1,6 @@
 package paint;
 
-import paint.listener.MousePanelInfo;
+import paint.shape.Chaine;
 import paint.shape.Dashed_rectangle;
 import paint.shape.FreeHand;
 import paint.shape.Shape;
@@ -16,7 +16,6 @@ public class PaintPanel extends JPanel {
     protected ArrayList<paint.shape.Shape> shapes;
     protected ArrayList<FreeHand> drawings;
     protected Dashed_rectangle selection;
-    // protected MousePanelInfo mousePanelInfo;
     protected Color couleur;
 
     public PaintPanel(){
@@ -25,9 +24,7 @@ public class PaintPanel extends JPanel {
         this.shapes = new ArrayList<>();
         this.couleur = Color.red;
         this.drawings = new ArrayList<>();
-        // this.mousePanelInfo = new MousePanelInfo();
         this.drawings.add(new FreeHand(this.couleur));
-        // this.addMouseListener(this.mousePanelInfo);
     }
 
     @Override
@@ -51,12 +48,6 @@ public class PaintPanel extends JPanel {
             this.shapes.get(this.shapes.size() - 1).mouseClik(e);
             this.repaint();
         }
-    }
-
-    public void mouseClic(MouseEvent e){
-        this.x = e.getX();
-        this.y = e.getY();
-        this.repaint();
     }
 
     public void addShape(Shape f){
@@ -85,10 +76,6 @@ public class PaintPanel extends JPanel {
         return couleur;
     }
 
-    public Dashed_rectangle getSelection() {
-        return selection;
-    }
-
     public ArrayList<FreeHand> getDrawings() {
         return drawings;
     }
@@ -108,6 +95,13 @@ public class PaintPanel extends JPanel {
                 h.moveShape(this.selection.getX(), this.selection.getY(), e);
             }
         }
+        for (Shape s: shapes){
+            if (s.getClass() == Chaine.class){
+                Chaine c = (Chaine) s;
+                if (this.selection.verifyShapeIntheRect(c))
+                    c.moveShape(this.selection.getX(), this.selection.getY(),e);
+            }
+        }
         this.selection.mouseClick(e);
         this.repaint();
     }
@@ -122,4 +116,7 @@ public class PaintPanel extends JPanel {
         this.repaint();
     }
 
+    public Dashed_rectangle getSelection() {
+        return selection;
+    }
 }
