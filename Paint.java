@@ -11,6 +11,7 @@ import paint.component.ColorChooser;
 import paint.component.DialogBox;
 import paint.component.DialogInteractif;
 import paint.listener.MousePanelInfo;
+import paint.listener.MousePaneldraw;
 import paint.shape.Cercle;
 import paint.shape.Chaine;
 import paint.shape.Dashed_rectangle;
@@ -64,7 +65,7 @@ public class Paint {
         toolBar.add(btn_select_line);
         toolBar.add(gomme);
         this.main.addMouseListener(new MousePanelInfo());
-        this.manageMain();
+        this.main.addMouseMotionListener(new MousePaneldraw());
 
         new DialogBox();
 
@@ -129,44 +130,6 @@ public class Paint {
                 if (d.getChaine() != null && ! d.getChaine().trim().equals("")) {
                     Chaine saisie = new Chaine(320, 90, main.getCouleur(), d.getChaine());
                     main.addShape(saisie);
-                }
-            }
-        });
-    }
-
-    public void manageMain(){
-        main.addMouseMotionListener(new MouseMotionListener() {
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                if (main.getCursor().equals(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR))){
-                    main.addFreeHand(e.getX(), e.getY());
-                }
-                else if (main.getCursor().equals(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR))) {
-                    if (main.selection == null)
-                        main.moveShapes(e);
-                    else
-                        main.moveDrawingsSelection(e);
-
-                } else if (main.getCursor().equals(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR))) {
-                    if (main.selection == null){
-                        Dashed_rectangle rectangle = new Dashed_rectangle(e.getX(), e.getY());
-                        main.addSelection(rectangle);
-                    } else {
-                        int w = e.getX() - main.selection.getX();
-                        int h = e.getY() - main.selection.getY();
-                        main.selection.changeSize(w, h);
-                        main.repaint();
-                    }
-                }
-            }
-
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                if (main.selection != null) {
-                    if (main.selection.isInTheShape(e.getX(), e.getY()))
-                        main.setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));
-                    else
-                        main.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
                 }
             }
         });
