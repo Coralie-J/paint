@@ -1,15 +1,20 @@
 package paint.shape;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class FreeHand extends Shape {
 
-    private class Point{
+    protected class Point{
         public int x,y;
         public Point(int x, int y){
             this.x = x;
             this.y = y;
+        }
+
+        public String toString(){
+            return "(" + x + "," + y + ")";
         }
     }
 
@@ -24,14 +29,6 @@ public class FreeHand extends Shape {
         this.points.add(new Point(x, y));
     }
 
-    public void printPoint(){
-        System.out.println(
-                this.points.get(points.size() - 1).x + " " +
-                this.points.get(points.size() - 1).y
-        );
-    }
-
-
     @Override
     public void draw(Graphics g) {
 
@@ -40,6 +37,32 @@ public class FreeHand extends Shape {
             Point p2 = this.points.get(i+1);
             g.setColor(this.color);
             g.drawLine(p1.x, p1.y, p2.x, p2.y);
+        }
+    }
+
+    @Override
+    public boolean isInTheShape(int x, int y) {
+        return false;
+    }
+
+    public void moveShape(int x, int y, MouseEvent e){
+        int diff_x = (e.getX() - this.points.get(0).x) + (this.points.get(0).x - x);
+        int diff_y =  (e.getY() - this.points.get(0).y) + (this.points.get(0).y - y);
+
+        for (int i = 0; i < this.points.size(); i++) {
+            this.points.get(i).x += diff_x;
+            this.points.get(i).y += diff_y;
+        }
+    }
+
+
+    @Override
+    public void moveShape(MouseEvent e){
+        int diff_x = e.getX() - this.points.get(0).x;
+        int diff_y = e.getY() - this.points.get(0).y;
+        for (int i = 0; i < this.points.size(); i++) {
+            this.points.get(i).x += diff_x;
+            this.points.get(i).y += diff_y;
         }
     }
 }

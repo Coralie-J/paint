@@ -13,10 +13,20 @@ public abstract class Shape {
         this.color = c;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public int getY(){
+        return y;
+    }
+
     public void mouseClik(MouseEvent e){
         this.x = e.getX();
         this.y = e.getY();
     }
+
+    public void moveShape(MouseEvent e, Point point){};
 
     public Color getColor() {
         return color;
@@ -27,4 +37,8 @@ public abstract class Shape {
     }
 
     public abstract void draw(Graphics g);
+
+    public abstract boolean isInTheShape(int x, int y);
+
+    public abstract void moveShape(MouseEvent e);
 }
