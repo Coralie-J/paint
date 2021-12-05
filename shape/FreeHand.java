@@ -45,6 +45,13 @@ public class FreeHand extends Shape {
         return false;
     }
 
+    /**
+     * Déplace l'objet dans le cas où on a selectionné la chaine via un encadrement
+     * @param x abscisse du conteneur de la Chaine
+     * @param y ordonnée du conteneur de la Chaine
+     * @param e event qui a provoqué le déplacement du conteneur
+     */
+
     public void moveShape(int x, int y, MouseEvent e){
         int diff_x = (e.getX() - this.points.get(0).x) + (this.points.get(0).x - x);
         int diff_y =  (e.getY() - this.points.get(0).y) + (this.points.get(0).y - y);

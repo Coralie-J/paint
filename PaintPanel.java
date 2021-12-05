@@ -43,6 +43,11 @@ public class PaintPanel extends JPanel {
 
     }
 
+    /**
+     * Déplace le dernier element de l'attribut shapes de l'objet courant
+     * @param e evènement
+     */
+
     public void mouseClik(MouseEvent e){
         if (shapes.size() > 0) {
             this.shapes.get(this.shapes.size() - 1).mouseClik(e);
@@ -50,10 +55,21 @@ public class PaintPanel extends JPanel {
         }
     }
 
+    /**
+     * Ajoute un objet de type Shape dans l'arraylist d'objet Shape de l'objet courant
+     * @param f Objet de type Shape à ajouter
+     */
+
     public void addShape(Shape f){
         this.shapes.add(f);
         this.repaint();
     }
+
+    /**
+     * Ajoute un nouveau point dans l'arraylist de freehand
+     * @param x abscisse du point à ajouter
+     * @param y ordonnée du point à ajouter
+     */
 
     public void addFreeHand(int x, int y){
         drawings.get(drawings.size() - 1).changeColor(this.couleur);
@@ -65,6 +81,10 @@ public class PaintPanel extends JPanel {
         this.couleur = c;
     }
 
+    /**
+     * Efface tous les dessins
+     */
+
     public void clear(){
         this.drawings.clear();
         this.drawings.add(new FreeHand(this.couleur));
@@ -72,13 +92,28 @@ public class PaintPanel extends JPanel {
         this.repaint();
     }
 
+    /**
+     * Retourne la couleur du crayon
+     * @return objet de type Color
+     */
+
     public Color getCouleur() {
         return couleur;
     }
 
+    /**
+     * Retourne les dessins à main levée
+     * @return l'arraylist avec les objets de type Freehand
+     */
+
     public ArrayList<FreeHand> getDrawings() {
         return drawings;
     }
+
+    /**
+     * Déplace les figures de l'attribut shapes de l'objet courant si la souris est dans une figure
+     * @param e
+     */
 
     public void moveShapes(MouseEvent e){
         for (Shape s : shapes){
@@ -88,6 +123,11 @@ public class PaintPanel extends JPanel {
         }
         this.repaint();
     }
+
+    /**
+     * Déplace les dessins à main levée et les textes de l'interface en fonction d'une selection
+     * @param e evénement qui a provoqué le déplacement de la selection
+     */
 
     public void moveDrawingsSelection(MouseEvent e){
         for (FreeHand h : drawings){
@@ -106,15 +146,29 @@ public class PaintPanel extends JPanel {
         this.repaint();
     }
 
+    /**
+     * Initialise la selection avec le rectangle
+     * @param dashed_rectangle rectangle initialisé
+     */
+
     public void addSelection(Dashed_rectangle dashed_rectangle){
         this.selection = dashed_rectangle;
     }
+
+    /**
+     * Supprime la selection
+     */
 
     public void manageOutOfSelection(){
         this.selection = null;
         this.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
         this.repaint();
     }
+
+    /**
+     * Retourne la selection de l'objet courant
+     * @return selection
+     */
 
     public Dashed_rectangle getSelection() {
         return selection;

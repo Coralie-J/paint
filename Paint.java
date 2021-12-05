@@ -1,11 +1,10 @@
 package paint;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 
 import paint.component.ColorChooser;
 import paint.component.DialogBox;
@@ -14,12 +13,15 @@ import paint.listener.MousePanelInfo;
 import paint.listener.MousePaneldraw;
 import paint.shape.Cercle;
 import paint.shape.Chaine;
-import paint.shape.Dashed_rectangle;
 import paint.shape.Rectangle;
 
 public class Paint {
 
     private PaintPanel main;
+
+    /**
+     * Constitue l'interface
+     */
 
     public Paint(){
         JFrame window = new JFrame();
@@ -39,13 +41,52 @@ public class Paint {
 
         // Création des boutons
 
-        JButton bouton_rectangle = new JButton("▭");
-        JButton bouton_cercle = new JButton("O");
-        JButton bouton_str = new JButton("A");
+        JButton bouton_rectangle = new JButton();
+        JButton bouton_cercle = new JButton();
+        JButton bouton_str = new JButton();
         JButton btn_change_color = new JButton("Change color");
-        JButton btn_selection = new JButton("Selection forme");
-        JButton btn_select_line = new JButton("Selection A/Ligne");
-        JButton gomme = new JButton("Clear");
+
+        JButton btn_selection = new JButton();
+        JButton btn_select_line = new JButton();
+        JButton gomme = new JButton();
+
+        // Add icons
+
+        try {
+
+            Image img = ImageIO.read(getClass().getResource("./icons/rectangle.png"));
+            Image newimg = img.getScaledInstance( 40, 30,  java.awt.Image.SCALE_SMOOTH );
+            ImageIcon icon = new ImageIcon(newimg);
+            bouton_rectangle.setIcon(icon);
+
+            Image img2 = ImageIO.read(getClass().getResource("./icons/cercle.png"));
+            newimg = img2.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH );
+            icon = new ImageIcon(newimg);
+            bouton_cercle.setIcon(icon);
+
+            img2 = ImageIO.read(getClass().getResource("./icons/lettre_a.jpg"));
+            newimg = img2.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH );
+            icon = new ImageIcon(newimg);
+            bouton_str.setIcon(icon);
+
+            img2 = ImageIO.read(getClass().getResource("./icons/selection_main.png"));
+            newimg = img2.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH );
+            icon = new ImageIcon(newimg);
+            btn_selection.setIcon(icon);
+
+            img2 = ImageIO.read(getClass().getResource("./icons/selection.png"));
+            newimg = img2.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH );
+            icon = new ImageIcon(newimg);
+            btn_select_line.setIcon(icon);
+
+            img2 = ImageIO.read(getClass().getResource("./icons/gomme.png"));
+            newimg = img2.getScaledInstance( 40, 50,  java.awt.Image.SCALE_SMOOTH );
+            icon = new ImageIcon(newimg);
+            gomme.setIcon(icon);
+
+        }  catch (Exception e){
+            e.printStackTrace();
+        }
 
         // Ajout des listeners
 
