@@ -19,6 +19,10 @@ public class Paint {
 
     private PaintPanel main;
 
+    /**
+     * Constitue l'interface
+     */
+
     public Paint(){
         JFrame window = new JFrame();
         this.main = new PaintPanel();
